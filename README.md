@@ -44,9 +44,12 @@ rbnx build
 rbnx boot
 ```
 
-`rbnx build` generates the contract bindings and creates a package-owned Python
-environment. During `Driver(CMD_INIT)`, the primitive scans ALSA and initializes
-the selected capture and playback devices.
+`rbnx build` first creates an isolated package-owned Python environment, installs
+the pinned protobuf/gRPC compiler and runtime into it, and then generates the
+contract bindings with that same interpreter. The build imports every generated
+`*_pb2.py` and `*_pb2_grpc.py` module before accepting the package. At runtime,
+the primitive reuses this environment. During `Driver(CMD_INIT)`, it scans ALSA
+and initializes the selected capture and playback devices.
 
 ## Capabilities
 
@@ -66,6 +69,7 @@ rate, preferring 16 kHz. The speaker path defaults to mono, 16-bit PCM at
 
 ```bash
 python3 -m unittest -v test_speaker_driver.py
+python3 -m unittest discover -s tests -v
 rbnx build
 ```
 
