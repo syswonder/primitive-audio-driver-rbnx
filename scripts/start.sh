@@ -8,7 +8,8 @@ set -eo pipefail
 PKG_ROOT="${RBNX_PACKAGE_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 cd "$PKG_ROOT"
 
-export PYTHONPATH="$(rbnx path robonix-api):$PKG_ROOT:${PYTHONPATH:-}"
+CODEGEN_ROOT="$PKG_ROOT/rbnx-build/codegen"
+export PYTHONPATH="$(rbnx path robonix-api):$PKG_ROOT:$CODEGEN_ROOT/proto_gen:$CODEGEN_ROOT/robonix_mcp_types:${PYTHONPATH:-}"
 
 PYTHON="$PKG_ROOT/rbnx-build/venv/bin/python"
 if [[ ! -x "$PYTHON" ]]; then
