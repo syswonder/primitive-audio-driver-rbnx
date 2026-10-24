@@ -40,7 +40,12 @@ stop: |
 
 capabilities:
   - name: robonix/primitive/audio/mic
+    transport: grpc
   - name: robonix/primitive/audio/speaker
+    transport: grpc
   - name: robonix/primitive/audio/driver
+    transport: grpc
   - name: robonix/primitive/audio/list_devices
+    transport: grpc
   - name: robonix/primitive/audio/select_device
+    transport: grpc
